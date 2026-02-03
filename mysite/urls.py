@@ -20,5 +20,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tasks.urls')),  
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
+
+from django.urls import get_resolver
+
+print([url.pattern.regex.pattern for url in get_resolver().url_patterns])
 
