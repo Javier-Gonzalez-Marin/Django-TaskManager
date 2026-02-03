@@ -2,8 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from django.contrib.auth.models import User
-from django.db.utils import OperationalError
+
 
 def main():
     """Run administrative tasks."""
@@ -22,9 +21,13 @@ def main():
 if __name__ == '__main__':
     main()
 
+from django.contrib.auth.models import User
+from django.db.utils import OperationalError
+
 try:
     if not User.objects.filter(username='admin').exists():
         User.objects.create_superuser('admin', 'admin@example.com', 'admin')
         print("Superusuario creado")
 except OperationalError:
     print("Base de datos no lista para crear superusuario")
+
