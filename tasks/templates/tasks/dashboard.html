@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<h1>Dashboard</h1>
+
+<h2>Mis Proyectos</h2>
+<ul>
+    {% for project in owned_projects %}
+        <li>
+            <a href="{% url 'project_detail' project.pk %}">
+                <strong>{{ project.title }}</strong>
+            </a>
+            {{ project.completed_tasks }} / {{ project.total_tasks }} tareas completadas
+        </li>
+    {% empty %}
+        <li>No tienes proyectos propios.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h2>Colaboraciones</h2>
+<ul>
+    {% for project in collaborated_projects %}
+        <li>
+            <a href="{% url 'project_detail' project.pk %}">
+                <strong>{{ project.title }}</strong>
+            </a>
+            {{ project.completed_tasks }} / {{ project.total_tasks }} tareas completadas
+        </li>
+    {% empty %}
+        <li>No colaboras en ningún proyecto.</li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="/admin/">Ir al Admin</a>
+</p>
+
+</body>
+</html>

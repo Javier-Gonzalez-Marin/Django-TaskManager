@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>{{ object.title }}</h1>
+
+<p><strong>Descripción:</strong> {{ object.description }}</p>
+<p><strong>Fecha límite:</strong> {{ object.deadline }}</p>
+<p><strong>Owner:</strong> {{ object.owner.username }}</p>
+
+<hr>
+
+<h2>Estado de las tareas</h2>
+
+<canvas id="tasksChart" width="300" height="300"></canvas>
+
+
+<hr>
+
+<h2>Listado de tareas</h2>
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            <strong>{{ task.title }}</strong> |
+            Estado: {{ task.get_status_display }} |
+            Prioridad: {{ task.get_priority_display }}
+        </li>
+    {% empty %}
+        <li>Este proyecto no tiene tareas.</li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'dashboard' %}">← Volver al dashboard</a>
+</p>
+
+</body>
+</html>
+
+{% if user == object.owner %}
+    <p>
+        <a href="{% url 'project_edit' object.pk %}"> Editar proyecto</a> |
+        <a href="{% url 'project_delete' object.pk %}"> Borrar proyecto</a>
+    </p>
+{% endif %}
